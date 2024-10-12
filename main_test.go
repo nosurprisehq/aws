@@ -1,7 +1,6 @@
 package main
 
 import (
-	"context"
 	"net/http"
 	"testing"
 
@@ -9,20 +8,28 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestMain(t *testing.T) {
+func TestHandlerFound(t *testing.T) {
 	t.Parallel()
 
-	req := events.APIGatewayV2HTTPRequest{
-		RequestContext: events.APIGatewayV2HTTPRequestContext{
-			HTTP: events.APIGatewayV2HTTPRequestContextHTTPDescription{
-				Method: "GET",
-				Path:   "/hello",
-			},
-		},
+	req := events.APIGatewayProxyRequest{
+		HTTPMethod: http.MethodGet,
+		Path:       "/hello",
 	}
-	adapter := buildAdapter()
-	resp, err := adapter.ProxyWithContextV2(context.Background(), req)
+	resp, err := handler(req)
 	require.NoError(t, err)
 	require.Equal(t, http.StatusOK, resp.StatusCode)
-	require.Equal(t, "world", resp.Body)
+	require.Equal(t, "Hello, World!", resp.Body)
+}
+
+func TestHandlerNotFound(t *testing.T) {
+	t.Parallel()
+
+	req := events.APIGatewayProxyRequest{
+		HTTPMethod: http.MethodPost,
+		Path:       "/not-found",
+	}
+	resp, err := handler(req)
+	require.NoError(t, err)
+	require.Equal(t, http.StatusNotFound, resp.StatusCode)
+	require.Equal(t, "Not found", resp.Body)
 }
