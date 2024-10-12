@@ -24,5 +24,4 @@ tasks:
     requires:
       vars: [TAG, GITHUB_TOKEN]
     cmds:
-      - git tag {{.TAG}}
       - GITHUB_TOKEN={{.GITHUB_TOKEN}} goreleaser release --clean
