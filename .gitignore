@@ -1,0 +1,15 @@
+# Devbox.
+/.devbox
+
+# Editor.
+/.vscode
+
+# Temporary files.
+/main
+/aws
+
+# OS.
+.DS_Store
+
+# Goreleaser.
+/dist

@@ -1,0 +1,83 @@
+linters:
+  disable-all: true
+  enable:
+    - errcheck
+    - gosimple
+    - govet
+    - ineffassign
+    - staticcheck
+    - unused
+    - asasalint
+    - asciicheck
+    - bidichk
+    - bodyclose
+    - canonicalheader
+    - containedctx
+    - contextcheck
+    - decorder
+    - dogsled
+    - durationcheck
+    - errname
+    - errorlint
+    - exhaustive
+    - fatcontext
+    - forcetypeassert
+    - gci
+    - gocheckcompilerdirectives
+    - gochecknoglobals
+    - gochecknoinits
+    - gocritic
+    - godot
+    - godox
+    - gofumpt
+    - gomoddirectives
+    - goprintffuncname
+    - gosec
+    - inamedparam
+    - ireturn
+    - lll
+    - loggercheck
+    - mirror
+    - mnd
+    - musttag
+    - nilerr
+    - nilnil
+    - noctx
+    - nolintlint
+    - perfsprint
+    - prealloc
+    - predeclared
+    - revive
+    - sloglint
+    - tenv
+    - testifylint
+    - thelper
+    - paralleltest
+    - unconvert
+    - unparam
+    - whitespace
+    - wrapcheck
+    - wsl
+linters-settings:
+  errcheck:
+    check-type-assertions: true
+    check-blank: true
+  govet:
+    enable-all: true
+  decorder:
+    dec-order:
+      - var
+      - const
+      - type
+      - func
+    disable-dec-order-check: false
+  gci:
+    sections:
+      - standard
+      - blank
+      - default
+      - blank
+      - localmodule
+  godot:
+    scope: all
+    capital: true

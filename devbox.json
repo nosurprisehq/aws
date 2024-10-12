@@ -1,0 +1,15 @@
+{
+  "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/0.10.5/.schema/devbox.schema.json",
+  "packages": [
+    "go@1.23.1",
+    "goreleaser@2.2.0",
+    "go-task@3.38.0",
+    "tparse@latest",
+    "golangci-lint@1.61.0"
+  ],
+  "shell": {
+    "init_hook": [
+      "task setup"
+    ]
+  }
+}

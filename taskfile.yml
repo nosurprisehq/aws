@@ -1,0 +1,28 @@
+version: 3
+tasks:
+  setup:
+    run: when_changed
+    silent: true
+    cmds:
+      - |
+        [ "$CI" == "true" ] && exit 0
+        git config remote.origin.prune true
+        git config branch.main.mergeoptions "--ff-only"
+  go-build:
+    cmds:
+      - cmd: "{{.ENV}} go build -o main main.go"
+  go-test:
+    silent: true
+    cmds:
+      - go test -shuffle=on -trimpath -race -cover -covermode=atomic -json ./... | tparse -all
+  go-lint:
+    silent: true
+    cmds:
+      - golangci-lint run
+  release:
+    silent: true
+    requires:
+      vars: [TAG, GITHUB_TOKEN]
+    cmds:
+      - git tag {{.TAG}}
+      - GITHUB_TOKEN={{.GITHUB_TOKEN}} goreleaser release --clean
