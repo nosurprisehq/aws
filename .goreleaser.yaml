@@ -1,13 +1,17 @@
 version: 2
 builds:
-  - env:
+  - binary: bootstrap
+    env:
       - CGO_ENABLED=0
     goos:
       - linux
     goarch:
       - arm64
 archives:
-  - format: zip
+  - files:
+      - none*
+    format: zip
+    wrap_in_directory: false
     name_template: >-
       {{ .ProjectName }}_
       {{- title .Os }}_
