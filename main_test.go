@@ -11,9 +11,13 @@ import (
 func TestHandlerFound(t *testing.T) {
 	t.Parallel()
 
-	req := events.APIGatewayProxyRequest{
-		HTTPMethod: http.MethodGet,
-		Path:       "/hello",
+	req := events.APIGatewayV2HTTPRequest{
+		RequestContext: events.APIGatewayV2HTTPRequestContext{
+			HTTP: events.APIGatewayV2HTTPRequestContextHTTPDescription{
+				Method: http.MethodGet,
+			},
+		},
+		RawPath: "/hello",
 	}
 	resp, err := handler(req)
 	require.NoError(t, err)
@@ -24,9 +28,13 @@ func TestHandlerFound(t *testing.T) {
 func TestHandlerNotFound(t *testing.T) {
 	t.Parallel()
 
-	req := events.APIGatewayProxyRequest{
-		HTTPMethod: http.MethodPost,
-		Path:       "/not-found",
+	req := events.APIGatewayV2HTTPRequest{
+		RequestContext: events.APIGatewayV2HTTPRequestContext{
+			HTTP: events.APIGatewayV2HTTPRequestContextHTTPDescription{
+				Method: http.MethodPost,
+			},
+		},
+		RawPath: "/not-found",
 	}
 	resp, err := handler(req)
 	require.NoError(t, err)
